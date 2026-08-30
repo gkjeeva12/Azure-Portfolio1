@@ -1,59 +1,144 @@
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-const form = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
+document.addEventListener("DOMContentLoaded", function () {
 
-menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("open");
-});
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
 
-document.querySelectorAll("nav a").forEach(link => {
-  link.addEventListener("click", () => navLinks.classList.remove("open"));
-});
+    if (menuBtn && navLinks) {
+        menuBtn.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-
-  const button = form.querySelector("button[type='submit']");
-  button.textContent = "Sending...";
-  button.disabled = true;
-  formStatus.textContent = "Sending your message...";
-
-  try {
-    const response = await fetch("https://formsubmit.co/ajax/jjee2577@gmail.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        message: form.elements.message.value,
-        _subject: "New Portfolio Contact Message",
-        _template: "table",
-        _captcha: "true"
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok || data.success !== "true") {
-      throw new Error(data.message || "Unable to send the message.");
+        // Close mobile menu when a link is clicked
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("active");
+            });
+        });
     }
 
-    formStatus.textContent = "Message sent successfully! I will get back to you soon.";
-    form.reset();
-  } catch (error) {
-    console.error("Contact form error:", error);
-    formStatus.textContent = "Could not send the message. Please try again or email me directly at jjee2577@gmail.com.";
-  } finally {
-    button.textContent = "Send Message";
-    button.disabled = false;
-  }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+        link.addEventListener("click", function (event) {
+
+            const targetId = this.getAttribute("href");
+
+            if (targetId === "#") {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
+
+            if (target) {
+                event.preventDefault();
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+
+        });
+
+    });
+
+
+    // Add active navigation link while scrolling
+    const sections = document.querySelectorAll("section[id]");
+    const navigationLinks = document.querySelectorAll("#navLinks a");
+
+    function updateActiveNavigation() {
+
+        let currentSection = "";
+
+        sections.forEach(function (section) {
+
+            const sectionTop = section.offsetTop - 150;
+            const sectionHeight = section.offsetHeight;
+
+            if (
+                window.scrollY >= sectionTop &&
+                window.scrollY < sectionTop + sectionHeight
+            ) {
+                currentSection = section.getAttribute("id");
+            }
+
+        });
+
+        navigationLinks.forEach(function (link) {
+
+            link.classList.remove("active");
+
+            if (link.getAttribute("href") === "#" + currentSection) {
+                link.classList.add("active");
+            }
+
+        });
+
+    }
+
+    window.addEventListener("scroll", updateActiveNavigation);
+
+    updateActiveNavigation();
+
+
+    // Reveal elements when they enter the screen
+    const revealElements = document.querySelectorAll(
+        ".project-card, .skill-card, .info-card, .timeline-item"
+    );
+
+    if ("IntersectionObserver" in window) {
+
+        const observer = new IntersectionObserver(
+            function (entries, observer) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("show");
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
+
+        revealElements.forEach(function (element) {
+            observer.observe(element);
+        });
+
+    } else {
+
+        revealElements.forEach(function (element) {
+            element.classList.add("show");
+        });
+
+    }
+
+
+    /*
+     * CONTACT FORM
+     *
+     * IMPORTANT:
+     * The contact form is handled directly by FormSubmit.
+     * Do NOT use fetch(), AJAX, preventDefault(), or another
+     * submit handler here.
+     *
+     * The form in index.html uses:
+     *
+     * action="https://formsubmit.co/jjee2577@gmail.com"
+     *
+     * Therefore, the browser submits the form directly to
+     * FormSubmit, which forwards the message to your Gmail.
+     */
+
 });
