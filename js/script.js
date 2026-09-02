@@ -124,38 +124,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-// Contact form
-const contactForm = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
-
-if (contactForm) {
-    contactForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        formStatus.textContent = "Sending...";
-
-        try {
-            const response = await fetch(
-                "https://formsubmit.co/ajax/jjee2577@gmail.com",
-                {
-                    method: "POST",
-                    body: new FormData(contactForm),
-                    headers: {
-                        Accept: "application/json"
-                    }
-                }
-            );
-
-            if (response.ok) {
-                formStatus.textContent = "Message sent successfully!";
-                contactForm.reset();
-            } else {
-                formStatus.textContent =
-                    "Could not send the message. Please try again.";
-            }
-        } catch (error) {
-            formStatus.textContent =
-                "Could not send the message. Please try again.";
-        }
-    });
-}
+});
