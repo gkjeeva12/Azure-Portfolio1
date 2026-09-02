@@ -454,87 +454,42 @@
           <!-- FORM SUBMIT CONTACT FORM -->
 
           <form
-            action="https://formsubmit.co/jjee2577@gmail.com"
-            method="POST"
-            class="contact-form">
+    action="https://formsubmit.co/jjee2577@gmail.com"
+    method="POST"
+    class="contact-form">
 
-            <!-- Email subject -->
-            <input
-              type="hidden"
-              name="_subject"
-              value="New Portfolio Contact Message">
+    <input
+        type="hidden"
+        name="_subject"
+        value="New Portfolio Contact Message">
 
-            <!-- Disable FormSubmit captcha -->
-            <input
-              type="hidden"
-              name="_captcha"
-              value="false">
+    <input
+        type="hidden"
+        name="_captcha"
+        value="false">
 
-            <!-- Thank-you page -->
-            <input
-              type="hidden"
-              name="_next"
-              value="https://formsubmit.co/thank-you">
+    <input
+        type="text"
+        name="name"
+        placeholder="Your name"
+        required>
 
-            <!-- Name -->
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              required>
+    <input
+        type="email"
+        name="email"
+        placeholder="Your email"
+        required>
 
-            <!-- Visitor email -->
-            <input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              required>
+    <textarea
+        name="message"
+        rows="5"
+        placeholder="Your message"
+        required></textarea>
 
-            <!-- Message -->
-            <textarea
-              name="message"
-              rows="5"
-              placeholder="Your message"
-              required></textarea>
+    <button
+        class="btn primary"
+        type="submit">
+        Send Message
+    </button>
 
-            <!-- Submit -->
-            <button
-              class="btn primary"
-              type="submit">
-              Send Message
-            </button>
-
-          </form>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- Footer -->
-  <footer>
-
-    <div class="container footer-inner">
-
-      <p>
-        © 2026 G K Jeeva. All rights reserved.
-      </p>
-
-      <a href="#home">
-        Back to top ↑
-      </a>
-
-    </div>
-
-  </footer>
-
-
-  <!-- Main JavaScript -->
-  <script src="js/script.js"></script>
-
-</body>
-</html>
+</form>
