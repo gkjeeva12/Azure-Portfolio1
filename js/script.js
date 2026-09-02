@@ -124,21 +124,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+// Contact form
+const contactForm = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
 
-    /*
-     * CONTACT FORM
-     *
-     * IMPORTANT:
-     * The contact form is handled directly by FormSubmit.
-     * Do NOT use fetch(), AJAX, preventDefault(), or another
-     * submit handler here.
-     *
-     * The form in index.html uses:
-     *
-     * action="https://formsubmit.co/jjee2577@gmail.com"
-     *
-     * Therefore, the browser submits the form directly to
-     * FormSubmit, which forwards the message to your Gmail.
-     */
+if (contactForm) {
+    contactForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-});
+        formStatus.textContent = "Sending...";
+
+        try {
+            const response = await fetch(
+                "https://formsubmit.co/ajax/jjee2577@gmail.com",
+                {
+                    method: "POST",
+                    body: new FormData(contactForm),
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+            );
+
+            if (response.ok) {
+                formStatus.textContent = "Message sent successfully!";
+                contactForm.reset();
+            } else {
+                formStatus.textContent =
+                    "Could not send the message. Please try again.";
+            }
+        } catch (error) {
+            formStatus.textContent =
+                "Could not send the message. Please try again.";
+        }
+    });
+}
