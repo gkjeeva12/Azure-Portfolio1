@@ -453,20 +453,9 @@
 
           <!-- FORM SUBMIT CONTACT FORM -->
 
-          <form
-    action="https://formsubmit.co/jjee2577@gmail.com"
-    method="POST"
-    class="contact-form">
-
-    <input
-        type="hidden"
-        name="_subject"
-        value="New Portfolio Contact Message">
-
-    <input
-        type="hidden"
-        name="_captcha"
-        value="false">
+          <form id="contactForm" class="contact-form">
+    <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+    <input type="hidden" name="_captcha" value="false">
 
     <input
         type="text"
@@ -486,10 +475,9 @@
         placeholder="Your message"
         required></textarea>
 
-    <button
-        class="btn primary"
-        type="submit">
+    <button class="btn primary" type="submit">
         Send Message
     </button>
 
+    <p id="formStatus"></p>
 </form>
